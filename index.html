@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scott's GitHub Portfolio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #e0e7ff 0%, #f9fafb 100%);
+        color: #2d3748;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+        transition: background-color 0.5s, color 0.5s;
+        padding-top: 72px;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      .container {
+        max-width: 960px;
+        width: 100%;
+      }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        
+      }
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+      .nav-links a {
+        font-weight: 600;
+        color: #2563eb;
+      }
+      .toggle-btn {
+        padding: 8px 16px;
+        border: 1px solid #2563eb;
+        background: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        color: #2563eb;
+      }
+      .toggle-btn:hover {
+        background-color: rgba(59, 130, 246, 0.1);
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+      header h1 {
+        font-weight: 600;
+        font-size: 2.75rem;
+        color: #2563eb;
+        margin-bottom: 8px;
+        letter-spacing: -0.02em;
+      }
+      header p {
+        font-weight: 400;
+        font-size: 1.125rem;
+        color: #6b7280;
+        font-style: italic;
+      }
+
+      .hero-placeholder {
+        margin-bottom: 48px;
+        text-align: center;
+        padding: 40px 20px;
+        background-color: #f1f5f9;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        .section-spacing {
+        margin-top: 80px;
+        }
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));;
+        justify-content: center;
+        gap: 24px;
+        margin-bottom: 64px;
+      }
+      @media(min-width: 600px) {
+        .projects-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media(min-width: 900px) {
+        .projects-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .project-card {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(59, 130, 246, 0.15);
+        padding: 24px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        border: 2px solid transparent;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .project-card:hover,
+      .project-card:focus-within {
+        box-shadow: 0 8px 25px rgba(87, 150, 252, 0.3);
+        transform: translateY(-5px);
+        border-color: #2563eb;
+        cursor: pointer;
+        outline: none;
+      }
+      .project-title {
+        font-size: 1.375rem;
+        font-weight: 600;
+        color: #2563eb;
+        margin: 0 0 12px 0;
+      }
+      .project-desc {
+        flex-grow: 1;
+        font-size: 1rem;
+        color: #4771b4;
+        margin-bottom: 16px;
+        line-height: 1.5;
+      }
+      .language-badge {
+        display: inline-block;
+        background-color: #2563eb;
+        color: white;
+        font-weight: 600;
+        font-size: 0.875rem;
+        padding: 6px 14px;
+        border-radius: 9999px;
+        align-self: flex-start;
+        user-select: none;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.35);
+        transition: background-color 0.3s ease;
+      }
+      .project-card:hover .language-badge {
+        background-color: #3b82f6;
+      }
+
+      footer {
+        margin-top: 64px;
+        font-size: 0.875rem;
+        color: #9ca3af;
+        text-align: center;
+        user-select: none;
+      }
+      .social-links {
+        margin-top: 12px;
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+      }
+      .dark body {
+        background: #111827;
+        color: #f9fafb;
+      }
+      .dark .hero-placeholder {
+        background-color: #1f2937;
+        color: #f3f4f6;
+      }
+      .dark .project-card {
+        background-color: #1e293b;
+        color: #e5e7eb;
+      }
+      .dark .project-title {
+        color: #dbeafe;
+      }
+      .dark .nav-links a,
+      .dark .toggle-btn {
+        color: #dbeafe;
+        border-color: #dbeafe;
+      }
+      .skills-list {
+        list-style-type: disc;
+      padding-left: 1.5rem;
+        text-align: left;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 8px 24px;
+        margin-top: 1rem;
+    }
+    .skills-list li {
+      margin-bottom: 0.5rem;
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: #f9fafb;
+      padding: 16px 20px;
+      background-color: rgba(255, 255, 255, 0.8); /* translucent white */
+      backdrop-filter: blur(10px); /* blur effect */
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .education-placeholder {
+      margin-top: 64px;
+      padding: 40px 20px;
+      background-color: #f1f5f9;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    .dark .education-placeholder {
+      background-color: #1f2937;
+      color: #f3f4f6;
+    }
+    
+
+/* Add dark mode background support if you're using dark mode toggle */
+.dark .navbar {
+  background-color: rgba(30, 58, 138, 0.8);
+}
+
+      
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Navigation -->
+      <nav class="navbar">
+        <div class="nav-links">
+          <a href="#">Home</a>
+          <a href="#about">About Me</a>
+          <a href="#projects">Projects</a>
+        </div>
+        <button id="darkModeToggle" class="toggle-btn">🌙 Dark Mode</button>
+      </nav>
+
+      <!-- Header -->
+      <header>
+        <h1>Scott's Portfolio</h1>
+        <p>A showcase of my projects, code, and how I got here!</p>
+      </header>
+
+      <!-- Hero Placeholder -->
+<section class="hero-placeholder">
+  <h2>Welcome to my portfolio!</h2>
+  <p>Hi there! My name is Scott! I am a software developer with many interests but specifically looking to develop my knowledge and skills in data engineering. Please see my projects below that show use of a number of skills and tools.</p>
+</section>
+
+
+
+      <!-- Projects -->
+      <main id="projects" class="projects-grid">
+        <a href="https://github.com/Liducin/NYC-Taxi-Fare-Prediction-BigQuery-ML" class="project-card" target="_blank" rel="noopener noreferrer">
+          <h2 class="project-title">NYC Taxi Fare Prediction</h2>
+          <p class="project-desc">Predict taxi fares in NYC using BigQuery ML.</p>
+          <span class="language-badge">Python</span>
+        </a>
+        <a href="https://github.com/Liducin/Youtube-Analytics-with-Looker" class="project-card" target="_blank" rel="noopener noreferrer">
+          <h2 class="project-title">YouTube Analytics Dashboard</h2>
+          <p class="project-desc">A dashboard to analyze YouTube channel metrics with React.</p>
+          <span class="language-badge">TypeScript</span>
+        </a>
+      </main>
+
+
+
+      <!-- Skills Section -->
+<section class="hero-placeholder">
+  <h2>Skills and tools that I am familiar with:</h2>
+  <ul class="skills-list">
+    <li>Data Engineering</li>
+    <li>Machine Learning</li>
+    <li>Data Analysis</li>
+    <li>Python</li>
+    <li>JavaScript</li>
+    <li>SQL</li>
+    <li>BigQuery</li>
+    <li>React</li>
+    <li>TypeScript</li>
+    <li>Docker</li>
+    <li>AWS</li>
+    <li>GitHub Actions</li>
+    <li>Google Cloud Platform</li>
+    <li>Dataflow</li>
+    <li>Dataproc</li>
+    <li>Looker</li>
+    <li>Data Visualization</li>
+    <li>Data Pipelines</li>
+    <li>APIs</li>
+    <li>Web Development</li>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>node.js</li>
+    <li>next.js</li>
+    <li>Apache Spark</li>
+    <li>Hadoop</li>
+    <li>Identity and Access Management</li>
+    <LI>Datalakes</LI>
+  </ul>
+</section>
+<section id="education" class="education-placeholder">
+  <h2>Education</h2>
+  <p>Bachelor's Degree in Mechanical Engineering from Southern Illinois University Edwardsville (SIUE)</p>
+  <p>Google Cloud Professional Data Engineering Course</p>
+  <p>Machine Learning Specialization by DeepLearning.AI</p>
+
+
+</section>
+<section id="about" class="more-about-me-placeholder">
+  <h2>More About Me</h2>
+  <p>I am an engineer with a diverse background beginning with my education at Southern Illinois University (SIUE). I  earned a bachelor's degree in Mechanical Engineering at SIUE, and began working at an electric motor company called Nidec Motor Corporation. I was part of the team working for their largest customer with the highest demand and pressure on us. We worked heavily with the customer to research and develop new modern solutions for their problems, then bring these ideas to life through extensive testing and review. I then made a slight change and went into a sales engineering role at Ametek O'Brien Corporation. There I started as customer facing and focused on communication and relationships which was a skill I saw was valuable and I wanted to improve on. I communicate with the customer, collect the necessary information to fully understand their problem at hand and enter this into application engineering to design a custom solution. I would then provide this to the customer explaining any details associated, then receive their PO and process it. Of course, this came with all of the customer facing responsibilities like if troubleshooting, problem resolution, and cost mitigation. I then became more of a utility engineer as I was still doing the customer facing role, but I also learned how to design these special or custom solutions so I was a able to provide my customers with everything needed without needing to get other engineers involved. I also covered the largest area at this point so I certainly gained skills on organizing, prioritizing, and efficiency. 
+     </p>  
+  <p>I did have some background in programming through school and of course it interested me but I didn't have the knowledge of myself at the time to know I should pursue it. A few years back I pursued an interest in Python and I came up with projects in discord.py and did some other small projects but it just wasn't as interesting without having a real compelling problem to solve. A close friend of mine knew of my background and asked if I would be interested in creating some automation and integrating webhooks and APIs for his membership group. I took him up on his offer and we've been working together since 2022. I focused on Python primarily with added external libraries to accomplish the automation and connection objectives, but moved on to other skills as well as demand for them became apparant. Once I became confident with Python, I spent time learning differences between Python and other languages like JavaScript and C++. We continued developing software aspects of the group and eventually got into upgrading and optimizing the website. This offered an opportunity to learn and apply HTML and CSS on a real use case. It was terrific experience, and I'm proud of our work on it. It has since been professionally redeveloped and unfortunately, I have to admit he did do a better job! But it was really awesome working alongside a professional website developer and learning from him!</p>    
+  <p>This is where my real software development started. I kept digging into the group and optimizing things, improving the aesthetics of everything, adding webhooks and value add in places, and so on, but this is where I started getting into real development. We had a very weak pipeline for our members. It was all manual and had many holes where people could get through the paywall. Security and access was a mess and again it was all manual. As things grew it only got messier and harder to maintain. In response, I created our software pipeline to collect user given data and verify this alongside the paid account to grant access. The tricky part of this is multiple verification steps need to happen because discord usernames are not personal names. I created a system to optimize this and drastically increase the security of database. Using multiple API connections the process is almost completely automated now and I am looking to fully automate it very soon. It is very close. This pushed me further into software engineering and eventually into data engineering where I learned how to manipulate and handle data alongside PII (Personal Identifying information). I started working on personal projects centered around true data pipelines.</p> 
+  <p>I started my data engineering journey by taking the Google Cloud Professional Data Engineering Course which allowed me to work closely with GCP (Google Cloud Platform), BigQuery, DataProc, DataFlow, and numerous other tools. I then took the Machine Learning Specialization course by DeepLearning.AI and I began working on projects to build these skills.</p>
+  <h2>Key Projects</h2>
+  <p>My New York taxi fare project is a machine learning project creating a model that could successfully predict the taxi fares given historical data which is was pulled from a public database. This required cleaning, and manipulating data into usable tables then using the new data to create models. Multiple models were created and tested to figure out the caveats and take outliers into consideration. I could have just removed the outliers because there were some extra variables like JFK static rate fares, but how can a good model just ignore areas around airports? This was an awesome project. I love ML and would love to apply more ML models to my work.</p>
+  <p>My Youtube Analytics project is a data assessment project meant to practice creating user-friendly visual dashboards specifically designed for non-data engineers or people without data manipulation and assessment experience. I already had some experience with Power BI before using Looker, which is the dashboard I used for this project, but this was also a super interesting project. There are tons of tools and visuals that can be created and manipulated on the chart. So much so, it becomes difficult to keep everything on a single page. That being said, my priority for this dashboard was to be user friendly, so a single page where all the data is collected and manipulatable using visual filters was very important.</p>
+  <p>My next project will be a project centered around creating a full data pipeline, likely using DataProc and other GCP tools.</p>
+  
+      <!-- Footer -->
+      <footer>
+        &copy; <span id="year"></span> Scott. Built with HTML &amp; CSS.
+        <div class="social-links">
+          <a href="https://github.com/Liducin" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/scott-stauffenberg-b59942139" target="blank" rel="noopener noreferrer">LinkedIn</a>
+          
+        </div>
+      </footer>
+    </div>
+
+    <!-- Dark Mode Script -->
+    <script>
+      const toggleBtn = document.getElementById("darkModeToggle");
+      const html = document.documentElement;
+
+      // Restore previous theme
+      if (localStorage.getItem("theme") === "dark") {
+        html.classList.add("dark");
+        toggleBtn.textContent = "☀ Light Mode";
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        const isDark = html.classList.toggle("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        toggleBtn.textContent = isDark ? "☀ Light Mode" : "🌙 Dark Mode";
+      });
+
+      // Set year
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
+
